@@ -1,0 +1,23 @@
+class Solution {
+public:
+
+    int normal(int ind,int start,vector <int> &dp,vector <int> &nums){
+
+        if(dp[ind] != -1) return dp[ind];
+        if(ind == start) return dp[start] = nums[start];
+        if(ind == start + 1) return dp[start+1] = max(nums[start],nums[start+1]);
+
+        int take,ntake;
+        ntake = normal(ind-1,start,dp,nums);
+        take = normal(ind-2,start,dp,nums) + nums[ind];
+        //cout << normal(ind-2,start,dp,nums);
+        return dp[ind] = max(take,ntake);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) return nums[0];
+        vector <int> dp1(n+1,-1);
+        vector <int> dp2(n+1,-1);
+        return max(normal(n-2,0,dp1,nums),normal(n-1,1,dp2,nums));
+    }
+};
