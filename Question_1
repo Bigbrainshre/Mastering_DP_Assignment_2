@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = int64_t;
+typedef long double ld;
+#define endl "\n"
+#define all(x) x.begin(), x.end()
+#define rall(x) x.rbegin(), x.rend()
+#define vout(x) for(int i=0;i<x.size();i++){cout<<x[i]<<" ";}
+#define vin(x) for(int i=0;i<x.size();i++){cin>>x[i];}
+#define forr(n) for(int i=0;i<n;i++)
+#define forw(n) for(int i=n;i>0;i--)
+
+
+
+int minc(int n,vector<int> &dp){
+	if(n == 2) return dp[2] = 1;
+	// if(n == 1) return dp[1] = 0;
+	if(n%2 == 0){
+		if(dp[n/2] != -1) return n/2 + dp[n/2];
+		else {
+			dp[n/2] = minc(n/2,dp);
+			return n/2 +dp[n/2];
+		} 
+	}
+	else{
+		int forw;
+		int back;
+		if(dp[(n+1)] != -1) return 1 + dp[(n+1)];
+		else {
+			dp[n+1] = minc(n+1,dp);
+			forw = 1 +dp[n+1];
+		} 
+		if(dp[n-1] != -1) return 1 + dp[n-1];
+		else {
+			dp[n-1] = minc(n-1,dp);
+			back = 1 +dp[n-1];
+		} 
+		return max(forw,back);
+	}
+}
+
+
+void solve(){
+    int n;
+    cin >> n;
+	vector <int> dp(n+2,-1);
+	// vout(dp);cout<<""<<endl;
+	cout << minc(n,dp) <<endl; 
+	// vout(dp);cout<<""<<endl;   
+} 
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+
+    int t {1};
+    // cin >> t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
