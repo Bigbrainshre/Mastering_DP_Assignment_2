@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = int64_t;
+typedef long double ld;
+#define endl "\n"
+#define all(x) x.begin(), x.end()
+#define rall(x) x.rbegin(), x.rend()
+#define vout(x) for(int i=0;i<x.size();i++){cout<<x[i]<<" ";}
+#define vin(x) for(int i=0;i<x.size();i++){cin>>x[i];}
+#define forr(n) for(int i=0;i<n;i++)
+#define forw(n) for(int i=n;i>0;i--)
+
+
+
+
+void solve(vector <int> &val){
+    int n;
+    cin >> n;
+
+    vector <int> p(n);ll p_max=0,q_max=0;
+    vector <int> q(n);
+    vector <int> r(n);
+
+
+
+    vin(p)
+    vin(q)
+
+
+    for(int j=0;j<n;j++){
+    	if(p[j] > p[p_max]) p_max = j;
+    	if(q[j] > q[q_max]) q_max = j;
+
+    	int y = val[p[p_max]] + val[q[j-p_max]];
+    	int z = val[q[q_max]] + val[p[j-q_max]];
+
+    	r[j] = max(y,z);
+    }
+
+    vout(r);cout<<""<<endl;
+} 
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+
+
+    vector <int> val(100000);
+    val[0] = 1; 
+    for(int i=1;i<100000;i++){
+    	val[i] = (val[i-1]*2) % 998244353;
+    }
+
+
+
+
+    int t {1};
+    cin >> t;
+    while(t--){
+        solve(val);
+    }
+    return 0;
+}
